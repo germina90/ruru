@@ -55,7 +55,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
  
         if($stmt = $mysqli->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("sssi", $param_name, $param_address, $param_phone, $param_salary, $param_id);
+            $stmt->bind_param("ssssi", $param_name, $param_address, $param_salary, $param_phone, $param_id);
             
             // Set parameters
             $param_name = $name;
@@ -70,7 +70,8 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                 header("location: index.php");
                 exit();
             } else{
-                echo "Something went wrong. Please try again later.";
+                echo "KKKKKKKKKKSomething went wrong. Please try again later.";
+                echo "$param_phone";
             }
         }
          
@@ -96,7 +97,9 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
             $param_id = $id;
             
             // Attempt to execute the prepared statement
+            echo " 1 - -------------------------";
             if($stmt->execute()){
+                echo " 2 - -------------------------";
                 $result = $stmt->get_result();
                 
                 if($result->num_rows == 1){
@@ -107,7 +110,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                     $name = $row["name"];
                     $address = $row["address"];
                     $salary = $row["salary"];
-                    $phone = $row["phone"];
+                //    $phone = $row["phone"];
                 } else{
                     // URL doesn't contain valid id. Redirect to error page
                     header("location: error.php");
