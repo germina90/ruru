@@ -48,7 +48,9 @@
                                         echo "<th>Name</th>";
                                         echo "<th>Address</th>";
                                         echo "<th>Salary</th>";
-                                        echo "<th>Action</th>";
+                                        echo "<th>Phone</th>";
+                                        echo "<th>Food</th>";                                        
+                                        echo "<th>Action</th>";                                        
                                     echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
@@ -58,6 +60,8 @@
                                         echo "<td>" . $row['name'] . "</td>";
                                         echo "<td>" . $row['address'] . "</td>";
                                         echo "<td>" . $row['salary'] . "</td>";
+                                        echo "<td>" . $row['phone'] . "</td>";
+                                        echo "<td> <select> value='volvo'>Volvo</option>  <option value='saab'>Saab</option></select> </td>";
                                         echo "<td>";
                                             echo "<a href='read.php?id=". $row['id'] ."' title='View Record' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                                             echo "<a href='update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";

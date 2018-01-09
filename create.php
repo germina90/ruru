@@ -1,10 +1,11 @@
 <?php
 // Include config file
 require_once 'config.php';
- 
+
+
 // Define variables and initialize with empty values
-$name = $address = $salary = "";
-$name_err = $address_err = $salary_err = "";
+$name = $address = $salary = $food = "";
+$name_err = $address_err = $salary_err = $food_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -34,6 +35,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $salary_err = 'Please enter a positive integer value.';
     } else{
         $salary = $input_salary;
+    }
+
+    // Validate address
+    $input_food = trim($_POST["food_id"]);
+    if(empty($input_food)){
+        $food_err = 'Please enter a food.';     
+    } else{
+        $food = $input_food;
     }
     
     // Check input errors before inserting in database
@@ -93,7 +102,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <p>Please fill this form and submit to add employee record to the database.</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group <?php echo (!empty($name_err)) ? 'has-error' : ''; ?>">
-                            <label>Name</label>
+-                           <label>Name</label>
                             <input type="text" name="name" class="form-control" value="<?php echo $name; ?>">
                             <span class="help-block"><?php echo $name_err;?></span>
                         </div>
@@ -107,6 +116,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <input type="text" name="salary" class="form-control" value="<?php echo $salary; ?>">
                             <span class="help-block"><?php echo $salary_err;?></span>
                         </div>
+                        <div class="form-group <?php echo ''; ?>">
+                            <label>Food</label>                            
+                            <?php
+                            $sql_food = "SELECT * FROM food";
+                            if($result = $mysqli->query($sql_food)){
+                                if($result->num_rows > 0){                            
+                                    echo "<select name='id'>";
+                                    while($row = $result->fetch_array()){
+                                        unset($id, $item);
+                                        $id = $row['id'];
+                                        $item = $row['item']; 
+                                        echo '<option value="'.$id.'">'.$item.'</option>';                           
+                                    }
+                                    echo "</select>";                        
+                                // Free result set
+                                $result->free();    
+                                } else{
+                                    echo "build an empty select box here please";                                                        
+                                }
+                            } else{
+                                echo "ERROR: Could not able to execute $sql_food. " . $mysqli->error;
+                            }
+                        
+                            // Close connection
+                            $mysqli->close();    
+                            ?>
+                            <span class="help-block"><?php echo $food_err;?></span>
+                        </div>
+
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="index.php" class="btn btn-default">Cancel</a>
                     </form>
