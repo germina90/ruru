@@ -30,9 +30,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header clearfix">
-                        <h2 class="pull-left">Employees Details</h2>
-                        <a href="create.php" class="btn btn-success pull-right">Add New Employee?</a>
+                        <h2 class="pull-left">What I Ate</h2>
+                        <a href="create.php" class="btn btn-success pull-right">What did I eat?</a>
                     </div>
+                        <a href="foodCreate.php" class="btn btn-success pull-right">&nbsp;&nbsp;Add Menu Item?&nbsp;&nbsp;</a>
+                    
+
                     <?php
                     // Include config file
                     require_once 'config.php';
@@ -46,10 +49,11 @@
                                     echo "<tr>";
                                         echo "<th>#</th>";
                                         echo "<th>Name</th>";
-                                        echo "<th>Address</th>";
-                                        echo "<th>Salary</th>";
-                                        echo "<th>Phone</th>";
-                                        echo "<th>Food</th>";                                        
+                                        //echo "<th>Address</th>";
+                                        //echo "<th>Salary</th>";
+                                        //echo "<th>Phone</th>";
+                                        echo "<th>Food</th>";   
+                                        echo "<th>Time</th>";                                     
                                         echo "<th>Action</th>";                                        
                                     echo "</tr>";
                                 echo "</thead>";
@@ -58,10 +62,11 @@
                                     echo "<tr>";
                                         echo "<td>" . $row['id'] . "</td>";
                                         echo "<td>" . $row['name'] . "</td>";
-                                        echo "<td>" . $row['address'] . "</td>";
-                                        echo "<td>" . $row['salary'] . "</td>";
-                                        echo "<td>" . $row['phone'] . "</td>";
-                                        echo "<td> <select> value='volvo'>Volvo</option>  <option value='saab'>Saab</option></select> </td>";
+                                        //echo "<td>" . $row['address'] . "</td>";
+                                        //echo "<td>" . $row['salary'] . "</td>";
+                                        //echo "<td>" . $row['phone'] . "</td>";
+                                        echo "<td>Hamburger</td>";
+                                        echo "<td>morning</td>";
                                         echo "<td>";
                                             echo "<a href='read.php?id=". $row['id'] ."' title='View Record' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                                             echo "<a href='update.php?id=". $row['id'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";

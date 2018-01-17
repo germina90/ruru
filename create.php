@@ -38,7 +38,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Validate address
-    $input_food = trim($_POST["food_id"]);
+    $input_food = trim($_POST["food"]);
     if(empty($input_food)){
         $food_err = 'Please enter a food.';     
     } else{
@@ -46,18 +46,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Check input errors before inserting in database
-    if(empty($name_err) && empty($address_err) && empty($salary_err)){
+    if(empty($name_err) && empty($address_err) && empty($salary_err) && empty($food_err)){
+        echo "WTF";
         // Prepare an insert statement
-        $sql = "INSERT INTO employees (name, address, salary) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO employees (name, address, salary, food) VALUES (?, ?, ?, ?)";
  
         if($stmt = $mysqli->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("sss", $param_name, $param_address, $param_salary);
+            $stmt->bind_param("ssss", $param_name, $param_address, $param_salary, $param_food);
             
             // Set parameters
             $param_name = $name;
             $param_address = $address;
             $param_salary = $salary;
+            $param_food = $food;
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -116,13 +118,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <input type="text" name="salary" class="form-control" value="<?php echo $salary; ?>">
                             <span class="help-block"><?php echo $salary_err;?></span>
                         </div>
-                        <div class="form-group <?php echo ''; ?>">
+                        <div class="form-group class="form-control" <?php echo ''; ?>">
                             <label>Food</label>                            
                             <?php
                             $sql_food = "SELECT * FROM food";
                             if($result = $mysqli->query($sql_food)){
                                 if($result->num_rows > 0){                            
-                                    echo "<select name='id'>";
+                                    echo "<select name='food'>";
                                     while($row = $result->fetch_array()){
                                         unset($id, $item);
                                         $id = $row['id'];
